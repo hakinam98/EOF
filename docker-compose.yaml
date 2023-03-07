@@ -1,0 +1,11 @@
+﻿version: '3.8'
+services:
+  messagedb:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_USER: ngocnam
+      MYSQL_PASSWORD: 1234567
+      MYSQL_DATABASE: messagedb
+    ports:
+      - '3306:3306'
