@@ -24,7 +24,9 @@ export class ConversationGateway
   @WebSocketServer() server: Server;
 
   async handleConnection(client: Socket, ...args: any[]) {
-    console.log(`Connected: ${client.id}`);
+    console.log(
+      `UserID ${client.handshake?.query?.userId} Connected: ${client.id}`,
+    );
   }
 
   afterInit(server: Server) {
@@ -44,10 +46,8 @@ export class ConversationGateway
   async createReply(
     @MessageBody() createConversationReplyDto: ConversationReplyDto,
   ) {
-    const message = await this.conversationService.createReply(
-      createConversationReplyDto,
-    );
-    return this.server.emit('recMessage', message);
+    await this.conversationService.createReply(createConversationReplyDto);
+    return this.server.emit('recMessage', 'Conversation_reply Created');
   }
 
   @SubscribeMessage('findOneConversation')
